@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -78,7 +79,7 @@ public class Audit {
 	private Dealer dealer;
 
 	@JsonManagedReference(value = "auditTOJunctionTable")
-	@OneToMany(mappedBy = "audit", cascade = CascadeType.MERGE)
+	@OneToMany(mappedBy = "audit", cascade = CascadeType.ALL)
 	private List<AuditAuditor> auditAuditors;
 
 	public Audit(int auditId, @NotNull(message = "Choose Audit Type") AuditType auditType, LocalDate dateAssigned,

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.Tuple;
-
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +22,7 @@ import com.auto.dealeraudit.service.AuditorService;
  *
  */
 @Service
+@Transactional
 public class AuditorServiceImpl implements AuditorService {
 	
 	@Autowired
@@ -45,13 +46,33 @@ public class AuditorServiceImpl implements AuditorService {
 		}
 	}
 
+//<<<<<<< HEAD
 /*	@Override
 	public List<Auditor> getAllAuditors() throws CustomException {
+=======
+	@Override
+	public List<AuditorDto> getAllAuditors() throws CustomException { 
+>>>>>>> refs/remotes/origin/HimavanthAfterOtp
 		if (auditorRepository.findAll().isEmpty()) {
 			throw new CustomException("There are no Auditors exits");
 		} else {
-			return auditorRepository.findAll();
+			List<Tuple> auditorsTuples =  auditorRepository.findAllAuditors();
+			System.out.println(auditorsTuples);
+			List<AuditorDto> autorsDto = auditorsTuples.stream().map(t -> new AuditorDto(
+					t.get(0, Integer.class), 
+                    t.get(1, Integer.class),
+                    t.get(2, Integer.class),
+                    t.get(3, Integer.class),
+                    t.get(4, String.class), 
+                    t.get(5, String.class),
+                    t.get(6,String.class),
+                    t.get(7,String.class),
+                    t.get(8,String.class)
+					)).collect(Collectors.toList());
+			return autorsDto;
+		 
 	}
+<<<<<<< HEAD
 		*/
 	
 		@Override
@@ -78,5 +99,14 @@ public class AuditorServiceImpl implements AuditorService {
 	}
 
 
+
+
+	@Override
+	public List<Auditor> updateAuditorsAudits(List<Auditor> auditors) throws CustomException {
+		for (Auditor auditor : auditors) {
+			
+		}
+		return null;
+	}
 
 }

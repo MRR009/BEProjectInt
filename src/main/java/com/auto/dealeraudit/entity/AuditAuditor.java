@@ -5,6 +5,7 @@ package com.auto.dealeraudit.entity;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,15 +39,15 @@ public class AuditAuditor {
 	@Column(name = "workAllocation", nullable = false )
 	private float workAllocation;
 	
-	@NotNull(message = "Audit Details Required")
-	@ManyToOne(cascade = CascadeType.MERGE)
-	@JoinColumn(name = "auditId",referencedColumnName = "auditId",nullable = false)
+	//@NotNull(message = "Audit Details Required")
+	@ManyToOne
+	@JoinColumn(name = "audit_id",referencedColumnName = "auditId")
 	@JsonBackReference(value = "auditTOJunctionTable")
 	private Audit audit;
 	
-	@NotNull(message = "Auditor Details Required")
-	@ManyToOne(cascade = CascadeType.MERGE)
-	@JoinColumn(name = "auditorId",referencedColumnName = "auditorId",nullable = false)
+	//@NotNull(message = "Auditor Details Required")
+	@ManyToOne
+	@JoinColumn(name = "auditorId",referencedColumnName = "auditorId")
 	@JsonBackReference(value = "auditorTOJunctionTable")
 	private Auditor auditor;
 

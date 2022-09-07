@@ -29,7 +29,6 @@ public class DocumentServiceImpl implements DocumentService {
 	
 	@Autowired
 	ModelMapper modelMapper;
-
 	/*
 	 * *************************************************************************
 	 * create operations
@@ -76,7 +75,6 @@ public class DocumentServiceImpl implements DocumentService {
 
 		}
 	}
-	
 	@Override
 	public String readDocInDocument(int id) throws CustomException {
 		Document document =  documentRepository.findById(id).orElseThrow(() -> new CustomException("document not found"));
@@ -86,7 +84,7 @@ public class DocumentServiceImpl implements DocumentService {
 	@Override
 	public List<DocumentDocDto> readDocumentWODoc() throws CustomException {
 		List<Document> documents = documentRepository.findAll();
-		List<DocumentDocDto> documentDocDtos = new ArrayList();
+		List<DocumentDocDto> documentDocDtos = new ArrayList<DocumentDocDto>();
 		for(Document document:documents) {
 			DocumentDocDto documentDocDto = this.modelMapper.map(document,DocumentDocDto.class);
 			documentDocDtos.add(documentDocDto);
@@ -94,8 +92,7 @@ public class DocumentServiceImpl implements DocumentService {
 		
 		return documentDocDtos;
 	}
-	
-	
+
 	/*
 	 * *************************************************************************
 	 * update operations

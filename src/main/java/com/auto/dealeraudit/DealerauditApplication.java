@@ -12,12 +12,12 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @SwaggerDefinition
 public class DealerauditApplication {
-
+	
 	@Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
-	
+
 	
 	
 	public static void main(String[] args) {

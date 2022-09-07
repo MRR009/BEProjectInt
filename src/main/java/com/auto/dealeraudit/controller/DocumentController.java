@@ -117,6 +117,12 @@ public class DocumentController {
         filters.get("filter").forEach(System.out::println);
     }
 	
+	
+	@PostMapping(value="/getFilteredDocs",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Document>> filteredDocs(@RequestBody DocumentDto filters) {
+		return new ResponseEntity<List<Document>>(documentService.filteredDocuments(filters), HttpStatus.OK);
+    }
+	
 	@GetMapping(value = "/readDocInDocument")
 	public ResponseEntity<String>  readDocInDocument(@RequestParam int id){
 		return ResponseEntity.status(HttpStatus.OK).body(documentService.readDocInDocument(id));
@@ -127,11 +133,6 @@ public class DocumentController {
 		return ResponseEntity.status(HttpStatus.OK).body(documentService.readDocumentWODoc());
 		
 	}
-	
-	@PostMapping(value="/getFilteredDocs",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Document>> filteredDocs(@RequestBody DocumentDto filters) {
-		return new ResponseEntity<List<Document>>(documentService.filteredDocuments(filters), HttpStatus.OK);
-    }
 	
 	@RequestMapping(value="/requestotp",method = RequestMethod.POST) 
 	public ResponseEntity<List<Document>> requestOTP( @RequestBody Map<String,DocumentDto> params) 
@@ -171,7 +172,8 @@ public class DocumentController {
 	 */
 	 
 
-	@PutMapping(value = "/updateSelectedDocument/{multipleDocEditDto}")
+	@PutMapping(value = "/updateSelectedDocument/"
+			+ "")
 	public ResponseEntity<String> updateSelectedDocument(@Valid @RequestBody MultipleDocEditDto multipleDocEditDto) {
 		return new ResponseEntity<String>(documentService.updateSelectedDocument(multipleDocEditDto), HttpStatus.ACCEPTED);
 

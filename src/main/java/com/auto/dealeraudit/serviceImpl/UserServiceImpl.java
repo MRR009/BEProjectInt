@@ -2,9 +2,12 @@ package com.auto.dealeraudit.serviceImpl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.auto.dealeraudit.dto.UserDto;
 import com.auto.dealeraudit.entity.User;
 import com.auto.dealeraudit.entity.UserAddress;
 import com.auto.dealeraudit.exception.CustomException;
@@ -13,6 +16,7 @@ import com.auto.dealeraudit.repository.UserRepository;
 import com.auto.dealeraudit.service.UserService;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
 	@Autowired
@@ -51,12 +55,13 @@ public class UserServiceImpl implements UserService {
 
 		}
 	}
+	
 
 	@Override
-	public User readUserByMailIdAndPassword(String mailId, String password) throws CustomException {
+	public UserDto readUserByMailId(String mailId) throws CustomException {
 		User userTemp=userRepository.findByMailId(mailId);
-		if((userTemp!=null)&&(userTemp.getPassword().equals(password))) {
-			return userTemp;
+		if(userTemp!=null) {
+			return new UserDto(userTemp.getUserId(),userTemp.getMailId(),userTemp.getFirstName(),userTemp.getLastName(),userTemp.getPassword(),userTemp.getRole().getTitle());
 		}
 		else {
 			throw new CustomException("User does not exits");
@@ -171,6 +176,21 @@ public class UserServiceImpl implements UserService {
 
 		}
 	}
+
+	@Override
+	public UserDto resetPassword(String password, String mailId) throws CustomException {
+		User userTemp=userRepository.findByMailId(mailId);
+		UserDto dto = new UserDto();
+		if(userTemp!=null) {
+			 userRepository.updateUserPassword(password, mailId);
+			 return dto;
+		}
+		else {
+			throw new CustomException("User does not exits");
+		}
+	}
+
+	
 
 
 }

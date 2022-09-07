@@ -61,7 +61,7 @@ public class Auditor {
 	
 	//@NotNull(message = "Required Auditor Details")
 	@JsonManagedReference(value = "auditorTOJunctionTable")
-	@OneToMany(mappedBy = "auditor", cascade = CascadeType.MERGE)
+	@OneToMany(mappedBy = "auditor", cascade = CascadeType.ALL)
 	private List<AuditAuditor> auditAuditors;
 	
 	

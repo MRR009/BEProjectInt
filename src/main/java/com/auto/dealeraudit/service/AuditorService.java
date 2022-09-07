@@ -19,4 +19,7 @@ public interface AuditorService {
 
 	public abstract List<AuditorDto> getAllAuditors() throws CustomException;
 
+	public abstract List<Auditor> updateAuditorsAudits(List<Auditor> auditors) throws CustomException ;
+
+
 }
